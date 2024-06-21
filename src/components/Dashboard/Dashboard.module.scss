@@ -1,0 +1,49 @@
+/* Dashboard.css */
+
+/* Style for Selected Stocks section */
+
+.dashboardContent {
+  justify-content: center;
+
+  > .dashboardRow {
+    margin:  50px 50px 10px;
+    border: 1px solid rgb(25, 0, 255);
+
+     > .dashboardCol{
+      border: 1px solid rgb(25, 0, 255);
+      height:100%;
+     }
+  }
+}
+.scrollContainer {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cardCol {
+  flex: 0 0 auto;
+  margin-right: 16px; /* Adjust spacing between cards */
+}
+
+.scrollButtonLeft,
+.scrollButtonRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.scrollButtonLeft {
+  left: 0;
+}
+
+.scrollButtonRight {
+  right: 0;
+}
