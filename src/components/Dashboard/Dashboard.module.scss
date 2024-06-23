@@ -7,43 +7,32 @@
 
   > .dashboardRow {
     margin:  50px 50px 10px;
-    border: 1px solid rgb(25, 0, 255);
+    // border: 1px solid rgb(25, 0, 255);
 
      > .dashboardCol{
-      border: 1px solid rgb(25, 0, 255);
+      // border: 1px solid rgb(25, 0, 255);
       height:100%;
      }
   }
 }
-.scrollContainer {
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+
+.percentage-circle {
+  position: relative;
+  display: inline-block;
+  width: 120px; /* Adjust width of the circle */
+  height: 120px; /* Adjust height of the circle */
 }
 
-.cardCol {
-  flex: 0 0 auto;
-  margin-right: 16px; /* Adjust spacing between cards */
+.progress-ring {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
 }
 
-.scrollButtonLeft,
-.scrollButtonRight {
+.progress-ring-circle {
+  fill: none;
+}
+
+.diversityScore {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.scrollButtonLeft {
-  left: 0;
-}
-
-.scrollButtonRight {
-  right: 0;
+  font-size: 20rem;
 }

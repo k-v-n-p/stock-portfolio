@@ -1,0 +1,83 @@
+.scrollContainer {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  
+  
+  .stockCard {
+    border: 1px solid #e5e5ea;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px auto;
+    text-align: center;
+    justify-content: center;
+    transition: box-shadow 0.3s ease-in-out;
+    height: 300px;
+    min-width: 150px;
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .closeButton {
+      position: absolute;
+      top: 20px;
+      right: 10px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+    img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin: 10px 0;
+    }
+  
+    p {
+      margin: 5px 0;
+      font-size: 1em;
+    }
+  
+    .price {
+      font-size: 1.2em;
+      color: #3498ff;
+      font-weight: bold;
+    }
+  }
+  
+  
+  .cardCol {
+    flex: 0 0 auto;
+    margin-right: 16px; /* Adjust spacing between cards */
+  }
+  
+  .scrollButtonLeft,
+  .scrollButtonRight {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .scrollButtonLeft {
+      left: 0;
+    }
+    
+  .scrollButtonRight {
+    right: 0;
+  }
+  
+  .scrollButtonLeft:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  .scrollButtonRight:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
