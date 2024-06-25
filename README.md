@@ -10,27 +10,30 @@ Welcome to the Stock Portfolio application! This project is designed to help use
 - [License](#license)
 
 ## Features
+- **State-of-the-art Implementation:** Utilizes Redux Toolkit and RTK Query for efficient state management and API integration, alongside RSuite Design System for type-safe and responsive UI components.
 
-<!-- ![alt text](image.png) -->
-<div style="text-align: center;">
-![alt text](image-1.png)
-</div>
+
 - **Sector Allocation Visualization**: Visualize your holdings across various sectors to understand your exposure and sector-specific risk.
-- **Diversity Score**: Keep track of the diversity score the real-time calulator for your selcted stocks portfolio. Computed using the below formula, where w being the weight of each sector in the portfolio. 
+![alt text](image-6.png)
+
+- **Diversity Score**: Keep track of the diversity score the real-time calulator for your selcted stocks portfolio. Computed using the below formula, where w being the weight of each sector in the portfolio.
 \[ D = \left( 1 - \sum_{n=1}^{no. ofsectors} (w^2) \right) \cdot 100 \]
 
-- **Comprehensive Stock Data**: Access an extensive range of stocks from the NASDAQ 100 to diversify your portfolio. ![alt text](image-1.png)
+- **Comprehensive Stock Data**: Access an extensive range of stocks from the NASDAQ 100 to diversify your portfolio. 
+![alt text](image-7.png)
 
 - **Market Data Integration**: Fetch real-time stock prices and market data.
 - **Alerts**: Actionable alerts enabled for significant events and errors.
-![alt text](image-1.png)![alt text](image-1.png)
+![alt text](image-4.png)
+![alt text](image-5.png)
+
 - **Accessibility**: The dashboard will be soon accessible through a vercel deployment just enter your finhubb key and you will be good to go.
+
 - **User Interface Modes**: Improve your seamless experience with support for both dark and light modes.
-![alt text](image-1.png)
+![alt text](image-2.png)
+
 - **Search Functionality**: Utilize search capabilities to quickly find and choose specific stocks.
-<div style="text-align: center;">
-    ![alt text](image-1.png)
-</div>
+![alt text](image-8.png)
 
 
 ## Installation
