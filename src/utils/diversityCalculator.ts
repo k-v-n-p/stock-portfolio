@@ -4,7 +4,6 @@ type SectorData ={
 
 export const EvalDiveristyScore = (data: SectorData) => {
     // sum of values for each sector
-    console.log("calculating for data", data)
     const sectorSums: { [sector: string]: number } = {};
     for (const sector in data) {
         if (data.hasOwnProperty(sector)) {
@@ -26,4 +25,25 @@ export const EvalDiveristyScore = (data: SectorData) => {
         ? 100-(sectorPercentagesValues.reduce((sum, percentage) => sum + percentage ** 2, 0) / sectorPercentagesValues.length)/100
         : 0;
     return score;
+}
+
+
+export const getIndividualSectorWeightage = (data: SectorData) => {
+    const sectorSums: { [sector: string]: number } = {};
+    let totalInvested=0;
+
+    for (const sector in data) {
+        if (data.hasOwnProperty(sector)) {
+            sectorSums[sector] = data[sector].reduce((sum, value) => sum + value, 0);
+            totalInvested += sectorSums[sector];
+        }
+    }
+    let finalScores:[string,number][]=[]
+    for (const sector in sectorSums) {
+        if (data.hasOwnProperty(sector)) {
+            finalScores.push([sector,Math.floor((sectorSums[sector]/totalInvested)*100)])
+        }
+    }
+    console.log("returning from utils", finalScores,sectorSums)
+    return finalScores;
 }

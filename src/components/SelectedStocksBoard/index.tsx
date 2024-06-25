@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import { RootState } from '../../store/store';
 import { connect} from 'react-redux';
 import { StockData } from '../../apis/stockApi';
-import { Grid, Row, Col, Panel, Button, Badge  } from 'rsuite';
+import { Grid, Row, Col, Panel, Tooltip, Whisper} from 'rsuite';
 import styles from './SelectedStocks.module.scss';
 import { addSelectedSymbol, removeSelectedSymbol } from '../../store/slices/symbolSlice';
 import CloseOutlineIcon from '@rsuite/icons/CloseOutline';
@@ -11,10 +11,8 @@ type StockCardProps = PropsFromRedux
 
 const SeletedStocksBoard: React.FC<StockCardProps> = ({ stockData, selectedSymbols, addSelectedSymbol, removeSelectedSymbol }) => {
   
-  const cardsPerPage = 4; // Number of cards to display per page
+  const cardsPerPage = 4; 
   const symbols = Object.keys(stockData)
-  const totalCards = symbols.length;
-  const totalPages = Math.ceil(totalCards / cardsPerPage);
   const scrollContainerRef = useRef(null);
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -28,46 +26,50 @@ const SeletedStocksBoard: React.FC<StockCardProps> = ({ stockData, selectedSymbo
     }
   };
 
-  const handleAddSymbol = (symbol) => {
-    if (!selectedSymbols.includes(symbol)) {
-      addSelectedSymbol(symbol);
-    }
-  };
   const handleDeselectSymbol = (symbol) => {
     if (selectedSymbols.includes(symbol)) {
       removeSelectedSymbol(symbol);
     }
   };
 
-  console.log(stockData)
   return (
     <>
       <h4>My Stocks</h4>
       <Grid fluid>
-        <Row>
-          {/* {symbols.length > cardsPerPage && (} */}
+        <Row gutter={16}>
             <>
-           
-              <button className={styles.scrollButtonLeft} onClick={scrollLeft}>
-                &lt;
-              </button>
               <div className={styles.scrollContainer} ref={scrollContainerRef}>
                 {selectedSymbols.map((symbol, index) => (
-                  <Col key={index} xs={12} md={6} lg={3}>
+                  <>
+                  <Col key={index} xs={18} md={16} lg={14}>
                       <Panel className={styles.stockCard}>
                       <div className={styles.closeButton} onClick={()=>handleDeselectSymbol(symbol)}>
-                        <CloseOutlineIcon color="red" />
+                        <Whisper
+                          trigger="hover"
+                          speaker={<Tooltip>Remove this stock</Tooltip>}
+                        >
+                            <CloseOutlineIcon color="#f44336" style={{fontSize:"1.6em"}}/>
+                        </Whisper>
                       </div>
                         <img src={stockData[symbol].logo} alt="logo" className={styles.logo} />
                         <h4>{stockData[symbol].name}</h4>
+                        <p className={styles.sector}>{stockData[symbol].sector}</p>
+                        <p className={styles.price}>{stockData[symbol].currentPrice.toFixed(2)}$</p>
                       </Panel>
                   </Col>
+                  <Col key={`${index}-2`} xs={6} md={8} lg={10}></Col></>
                 ))}
               </div>
-              <button className={styles.scrollButtonRight} onClick={scrollRight}>
-                &gt;
-              </button>
-              
+              {symbols.length > cardsPerPage && (
+                <>
+                  <button className={styles.scrollButtonLeft} onClick={scrollLeft}>
+                    &lt;
+                  </button>
+                  <button className={styles.scrollButtonRight} onClick={scrollRight}>
+                    &gt;
+                  </button>
+                </>
+              )}
             </>
         </Row>
       </Grid>

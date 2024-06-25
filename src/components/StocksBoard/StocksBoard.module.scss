@@ -4,24 +4,34 @@
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 }
-
+.stockTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  justify-content: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
 .stockCard {
   border: 1px solid #e5e5ea;
   border-radius: 8px;
-  padding: 20px;
-  margin: 20px 0;
+  padding: 10px;
+  margin-top: 20px;
+  // margin-left: 100px;
   text-align: center;
   transition: box-shadow 0.3s ease-in-out;
   height: 350px;
-  min-width: 150px;
+  width: 200px;
 
   &:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   img {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
+    padding-top: 15px;
     object-fit: contain;
     margin: 10px 0;
   }
@@ -29,6 +39,10 @@
   p {
     margin: 5px 0;
     font-size: 1em;
+  }
+  
+  .sector{
+    height:2em;
   }
 
   .price {

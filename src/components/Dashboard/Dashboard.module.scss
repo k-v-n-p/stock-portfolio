@@ -1,6 +1,11 @@
-/* Dashboard.css */
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 
-/* Style for Selected Stocks section */
+
+
+.brand {
+  font-family: 'Josefin Sans', cursive;
+  font-size: large;
+}
 
 .dashboardContent {
   justify-content: center;
@@ -32,7 +37,18 @@
   fill: none;
 }
 
-.diversityScore {
-  position: absolute;
-  font-size: 20rem;
+.divScoreContainer {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  margin-top: 15%;
+
+  .diversityScore {
+    // width: 100%;
+    align-items: center;
+    justify-content: center;
+    
+  }
+  
 }
+

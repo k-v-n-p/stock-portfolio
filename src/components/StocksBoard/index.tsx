@@ -12,8 +12,7 @@ const StocksBoard: React.FC<StockCardProps> = ({ stockData, selectedSymbols, add
   
   const cardsPerPage = 4; // Number of cards to display per page
   const symbols = Object.keys(stockData)
-  const totalCards = symbols.length;
-  const totalPages = Math.ceil(totalCards / cardsPerPage);
+  // const totalPages = Math.ceil(symbols.length / cardsPerPage);
   const scrollContainerRef = useRef(null);
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -38,23 +37,19 @@ const StocksBoard: React.FC<StockCardProps> = ({ stockData, selectedSymbols, add
     }
   };
 
-  console.log(stockData)
   return (
     <>
       <h4>All Stocks</h4>
       <Grid fluid>
-        <Row>
-          {/* {symbols.length > cardsPerPage && (} */}
-            <>
-              <button className={styles.scrollButtonLeft} onClick={scrollLeft}>
-                &lt;
-              </button>
+        <Row gutter={16}>
+          <>
               <div className={styles.scrollContainer} ref={scrollContainerRef}>
                 {symbols.map((symbol, index) => (
-                  <Col key={index} xs={12} md={6} lg={3}>
-                    <Panel header={stockData[symbol].name} className={styles.stockCard}>
+                  <>
+                  <Col key={index} xs={18} md={16} lg={14}>
+                    <Panel header={<span className={styles.stockTitle}>{stockData[symbol].name}</span>} className={styles.stockCard}>
                       <img src={stockData[symbol].logo} alt="logo" className={styles.logo} />
-                      <p>{stockData[symbol].sector}</p>
+                      <p className={styles.sector}>{stockData[symbol].sector}</p>
                       <p className={styles.price}>{stockData[symbol].currentPrice.toFixed(2)}$</p>
                       <Button 
                         appearance={selectedSymbols.includes(symbol)?"ghost":"primary"}
@@ -66,12 +61,21 @@ const StocksBoard: React.FC<StockCardProps> = ({ stockData, selectedSymbols, add
                       </Button>
                     </Panel>
                   </Col>
+                  <Col key={`${index}-2`} xs={6} md={8} lg={10}></Col>
+                  </>
                 ))}
                 </div>
-              <button className={styles.scrollButtonRight} onClick={scrollRight}>
-                &gt;
-              </button>
-            </>
+                {symbols.length > cardsPerPage && (
+                <>
+                  <button className={styles.scrollButtonLeft} onClick={scrollLeft}>
+                    &lt;
+                  </button>
+                  <button className={styles.scrollButtonRight} onClick={scrollRight}>
+                    &gt;
+                  </button>
+                </>
+              )}
+        </>
         </Row>
       </Grid>
     </>

@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { clear } from 'console';
 
 type SymbolState ={
   symbols: string[];
@@ -16,7 +15,6 @@ const symbolSlice = createSlice({
   initialState,
   reducers: {
     setSymbols(state, action: PayloadAction<string[]>) {
-      console.log("got action", action)
       state.symbols = action.payload;
     },
     clearSymbols(state) {

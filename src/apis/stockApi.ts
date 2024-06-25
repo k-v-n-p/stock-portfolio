@@ -79,7 +79,8 @@ export const stockApi = createApi({
           const data = symbols.reduce((acc, symbol, index) => {
             const profileResponse = profileResponses[index].data as StockProfileResponse;
             const priceResponse = priceResponses[index].data as StockPriceResponse;
-
+            if (profileResponse.finnhubIndustry==="N/A" )
+              profileResponse.finnhubIndustry = "Unknown";
             acc[symbol] = {
               logo: profileResponse.logo || "https://static.finnhub.io/logo/87cb30d8-80df-11ea-8951-00000000092a.png",
               name: profileResponse.name || symbol,
@@ -88,7 +89,6 @@ export const stockApi = createApi({
             };
             return acc;
           }, {} as StockData);
-          console.log("Data",data)
           return {data};
         } catch (error) {
           return { error: { status: 'CUSTOM_ERROR', error: 'Something went wrong' } };
