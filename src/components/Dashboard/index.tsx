@@ -105,7 +105,7 @@ const Dashboard: React.FC<PropsFromRedux> = ({symbols, selectedSymbols, setSymbo
       toaster.clear()
       setStockData({...stocksData, ...stockData,});
       setTimeout(() => {
-        toaster.push(<Message type="success">Succesfully fetched Random stocks!</Message>, {
+        toaster.push(<Message type="success">Succesfully fetched stocks!</Message>, {
           duration: 2000,
           placement: "bottomCenter"
         });
@@ -166,7 +166,7 @@ const Dashboard: React.FC<PropsFromRedux> = ({symbols, selectedSymbols, setSymbo
               <Panel bordered style={{minHeight:"400px"}}>
                 <h2>Stock Portfolio Diversity</h2>
                 <Whisper
-                  trigger="hover"
+                  trigger={"click"}
                   placement="autoVertical"   //"bottom"
                   controlId={`diversity-pie-chart`}
                   speaker={
@@ -178,7 +178,7 @@ const Dashboard: React.FC<PropsFromRedux> = ({symbols, selectedSymbols, setSymbo
                       </Popover>
                     ) : (
                       <Popover style={{width:'500px'}}>
-                          <PieChart name="PieChart" data={pieChartData} /> 
+                          <PieChart name="Diversity Percentage" data={pieChartData} /> 
                       </Popover>
                     )
                   }
@@ -202,7 +202,7 @@ const Dashboard: React.FC<PropsFromRedux> = ({symbols, selectedSymbols, setSymbo
                 </Whisper>
                 
               </Panel>
-              <span style={{justifyContent:"center", textAlign:"center", fontSize:"1em", position:'relative', bottom: 0 }}><InfoOutlineIcon /> Hover on the score to see diversity chart.</span>
+              <span style={{justifyContent:"center", textAlign:"center", fontSize:"1em", position:'relative', bottom: 0 }}><InfoOutlineIcon /> Click on the score to see diversity chart.</span>
               
             </Col>
           </Row>
