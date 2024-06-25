@@ -1,19 +1,25 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import { RootState } from '../../store/store';
 import { connect} from 'react-redux';
 import { StockData } from '../../apis/stockApi';
-import { Grid, Row, Col, Panel, Button } from 'rsuite';
+import { Grid, Row, Col, Panel, Button,Input, InputGroup } from 'rsuite';
 import styles from './StocksBoard.module.scss';
 import { addSelectedSymbol, removeSelectedSymbol } from '../../store/slices/symbolSlice';
+import SearchIcon from '@rsuite/icons/Search';
 
 type StockCardProps = PropsFromRedux 
 
 const StocksBoard: React.FC<StockCardProps> = ({ stockData, selectedSymbols, addSelectedSymbol, removeSelectedSymbol }) => {
   
-  const cardsPerPage = 4; // Number of cards to display per page
-  const symbols = Object.keys(stockData)
-  // const totalPages = Math.ceil(symbols.length / cardsPerPage);
+  
   const scrollContainerRef = useRef(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const cardsPerPage = 4; // Number of cards to display per page
+  const symbols = Object.keys(stockData).filter(symbol => 
+    stockData[symbol].name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollLeft -= scrollContainerRef.current.offsetWidth;
@@ -40,6 +46,15 @@ const StocksBoard: React.FC<StockCardProps> = ({ stockData, selectedSymbols, add
   return (
     <>
       <h4>All Stocks</h4>
+      <InputGroup className={styles.searchInput}>
+        <Input 
+          placeholder="Search stocks..." 
+          value={searchQuery}
+          onChange={(value) => setSearchQuery(value)}
+          className={styles.searchInput}
+        />
+        <InputGroup.Addon><SearchIcon /></InputGroup.Addon>
+      </InputGroup>
       <Grid fluid>
         <Row gutter={16}>
           <>
@@ -75,7 +90,7 @@ const StocksBoard: React.FC<StockCardProps> = ({ stockData, selectedSymbols, add
                   </button>
                 </>
               )}
-        </>
+          </>
         </Row>
       </Grid>
     </>

@@ -17,7 +17,11 @@ import {
   Navbar,
   Stack,
   Popover,
-  Whisper  
+  Whisper,
+  useToaster,
+  Button, 
+  Tooltip,
+  Message
 } from 'rsuite';
 import styles from './Dashboard.module.scss';
 import StocksBoard from '../StocksBoard/index';
@@ -35,36 +39,82 @@ const Dashboard: React.FC<PropsFromRedux> = ({symbols, selectedSymbols, setSymbo
   const [theme, setTheme] = useState<"light" | "dark" | "high-contrast" | undefined>('light');
   const [diversityScore, setDiversityScore] = useState<number>(0);
   const [pieChartData, setPieChartData] = useState([]); // [["sector",percentage]
-  const [laodingMessage, setLoadingMessage] = useState<string>('');
+  const [loadingMessage, setLoadingMessage] = useState<string>('Getting Random initial Stocks');
+  const [fetchingStocksAgain, setFetchingStocksAgain] = useState<boolean>(false);
+  const toaster = useToaster();
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
+  // let currentValue=0;
+  const handleFetchStocksAgain =() =>{
+
+    const currStocksCount:number=Object.keys(stockData).length;
+
+    setFetchingStocksAgain(true);
+    toaster.push(<Message>Fetching more stocks...</Message>, {
+      duration: 3000,
+      placement: "bottomCenter"
+    });
+    console.log("current fethched stocks", stockSymbolsData)
+    if (!!stockData && currStocksCount<300) {
+      fetchingRandomUnfetchedStocks()
+    }
+    else if (currStocksCount>=300) {
+      toaster.push(<Message type="warning">That's enough stocks for you buddy!</Message>, {
+        duration: 5000,
+        placement: "bottomCenter"
+      });
+      toaster.push(<Message type="warning">You have almost 300 stocks!!</Message>, {
+        duration: 5000,
+        placement: "bottomCenter"
+      });
+    }
+    setTimeout(() => {
+      setFetchingStocksAgain(false);
+    }, 3000);
+  }
 
   useEffect(()=>{
-
     if (!!stockSymbolsData && !isFetchingstockSymbols) {
-      setSymbols([...stockSymbolsData.slice(0,5)]);
-      setLoadingMessage("Fetching more stocks...")
-      setTimeout(() => {
-        setSymbols([...stockSymbolsData.slice(5,10)]);
-      }, 1000);
+      setSymbols([...stockSymbolsData]);
     }
   },[isFetchingstockSymbols, stockSymbolsData,setSymbols])
 
-  useEffect(() => {
-    const filteredSymbols = symbols.filter(symbol => !stockData[symbol]);
+  const fetchingRandomUnfetchedStocks = () => {
+    const filteredSymbols = symbols.filter(symbol => !stockData[symbol]).slice(0,5);
     if (filteredSymbols.length > 0) {
       triggerStocksData(filteredSymbols,true);
     } else {
       clearStockData();
     }
+  }
+
+  useEffect(() => {
+    if (!!symbols.length) {
+      const filteredSymbols = symbols.filter(symbol => !stockData[symbol]).slice(0,5);
+        if (filteredSymbols.length > 0) {
+          triggerStocksData(filteredSymbols,true);
+        } else {
+          clearStockData();
+        }
+    } 
   }, [symbols, triggerStocksData, clearStockData]);
 
   useEffect(() => {
     if (stocksData) {
-      setStockData({...stockData,...stocksData});
+      toaster.clear()
+      setStockData({...stocksData, ...stockData,});
+      setTimeout(() => {
+        toaster.push(<Message type="success">Succesfully fetched Random stocks!</Message>, {
+          duration: 2000,
+          placement: "bottomCenter"
+        });
+      }, 500);
+      setFetchingStocksAgain(false);
+      
     }
   }, [stocksData]);
+
   const roundOff = (value: number, decimals: number = 2): number => Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
   useEffect(() => {
     let sectorObject={}
@@ -81,7 +131,6 @@ const Dashboard: React.FC<PropsFromRedux> = ({symbols, selectedSymbols, setSymbo
     })
     setDiversityScore( roundOff(EvalDiveristyScore(sectorObject),1) )
     setPieChartData(getIndividualSectorWeightage(sectorObject));
-    console.log(pieChartData)
   }, [selectedSymbols, stockData])
 
  if (stockSymbolsError || stocksError){
@@ -92,9 +141,9 @@ const Dashboard: React.FC<PropsFromRedux> = ({symbols, selectedSymbols, setSymbo
   // console.log(stocksData)
     return (
       <CustomProvider theme={theme}>
-      {isFetchingstockSymbols || isFetchingStocks ? <Loader center size="lg" content={laodingMessage} vertical />
+      {isFetchingstockSymbols || isFetchingStocks ? <Loader center size="lg" content={loadingMessage} vertical />
       :
-      <Container>
+      <Container className={styles.mainContainer}>
         <Header>
           <Navbar>
             <Navbar.Brand className={styles.brand}>
@@ -151,12 +200,20 @@ const Dashboard: React.FC<PropsFromRedux> = ({symbols, selectedSymbols, setSymbo
                     />
                   </div>
                 </Whisper>
+                
               </Panel>
-              <span style={{justifyContent:"center", fontSize:"1.5em" }}><InfoOutlineIcon /> Hover on the score to see diversity chart.</span>
+              <span style={{justifyContent:"center", textAlign:"center", fontSize:"1em", position:'relative', bottom: 0 }}><InfoOutlineIcon /> Hover on the score to see diversity chart.</span>
+              
             </Col>
           </Row>
           <Row className={styles.dashboardRow}>
             <Col xs={24}>
+              <Whisper
+                  trigger="hover"
+                  speaker={<Tooltip>Click to add more stocks to browse from</Tooltip>}
+                >
+                <Button appearance="ghost" color="cyan" size="xs" disabled={fetchingStocksAgain} onClick={handleFetchStocksAgain} style={{marginLeft:"10px", marginBottom:"10px"}}>Fetch more stocks</Button>
+              </Whisper>
               <Panel bordered>
                 <StocksBoard />
               </Panel>

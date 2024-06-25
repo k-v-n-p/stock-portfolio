@@ -44,6 +44,5 @@ export const getIndividualSectorWeightage = (data: SectorData) => {
             finalScores.push([sector,Math.floor((sectorSums[sector]/totalInvested)*100)])
         }
     }
-    console.log("returning from utils", finalScores,sectorSums)
     return finalScores;
 }
