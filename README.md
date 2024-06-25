@@ -13,24 +13,23 @@ Welcome to the Stock Portfolio application! This project is designed to help use
 
 <!-- ![alt text](image.png) -->
 <div style="text-align: center;">
-<img src="image-6.png" alt="alt text" width="300" />
+![alt text](image-1.png)
 </div>
-
 - **Sector Allocation Visualization**: Visualize your holdings across various sectors to understand your exposure and sector-specific risk.
 - **Diversity Score**: Keep track of the diversity score the real-time calulator for your selcted stocks portfolio. Computed using the below formula, where w being the weight of each sector in the portfolio. 
 \[ D = \left( 1 - \sum_{n=1}^{no. ofsectors} (w^2) \right) \cdot 100 \]
 
-- **Comprehensive Stock Data**: Access an extensive range of stocks from the NASDAQ 100 to diversify your portfolio. <img src="image-7.png" alt="alt text" width="210"/>
+- **Comprehensive Stock Data**: Access an extensive range of stocks from the NASDAQ 100 to diversify your portfolio. ![alt text](image-1.png)
 
 - **Market Data Integration**: Fetch real-time stock prices and market data.
 - **Alerts**: Actionable alerts enabled for significant events and errors.
-<img src="image-4.png" alt="alt text" width="250"/><img src="image-5.png" alt="alt text" width="250"/>
+![alt text](image-1.png)![alt text](image-1.png)
 - **Accessibility**: The dashboard will be soon accessible through a vercel deployment just enter your finhubb key and you will be good to go.
 - **User Interface Modes**: Improve your seamless experience with support for both dark and light modes.
-<img src="image-2.png" alt="alt text" width="500"/>
+![alt text](image-1.png)
 - **Search Functionality**: Utilize search capabilities to quickly find and choose specific stocks.
 <div style="text-align: center;">
-    <img src="image-8.png" alt="alt text" width="150"/>
+    ![alt text](image-1.png)
 </div>
 
 
