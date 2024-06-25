@@ -10,7 +10,7 @@ Welcome to the Stock Portfolio application! This project is designed to help use
 - [License](#license)
 
 ## Features
-- **State-of-the-art Implementation:** Utilizes Redux Toolkit and RTK Query for efficient state management and API integration, alongside RSuite Design System for type-safe and responsive UI components.
+- **State-of-the-art Implementation:** Utilizes Redux Toolkit and RTK Query for efficient state management and API integration, alongside RSuite Design System for type-safe and responsive UI components suitable for all screens.
 
 
 - **Sector Allocation Visualization**: Visualize your holdings across various sectors to understand your exposure and sector-specific risk.
